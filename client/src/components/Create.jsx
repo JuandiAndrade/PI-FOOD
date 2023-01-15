@@ -1,245 +1,198 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { getDiets, postRecipe } from '../actions/index';
+import style from "./styles/Create.module.css"
 
 
-function validate(input){
+function validate(input) {
   let errors = {};
-  if (!input.name){
-    errors.name = "se requiere nombre para receta"
-  }else if (!input.summary){
-    errors.summary = "Resumen debe ser completado"
+  if (!input.name) {
+    errors.name = "name requiere ser completado"
+  } else if (!input.summary) {
+    errors.summary = "summary requiere ser completado"
+  } else if (input.healthScore > 100 || input.healthScore < 0) {
+    errors.healthScore = 'el valor tiene que encontrarse entre 0 y 100';
   }
   return errors;
 }
 
 export default function Create() {
-
-const dispatch = useDispatch()
-// const history = useHistory()
-const diets = useSelector((state)=> state.diets)
-const [errors, setErrors] = useState({})
-
-const [input, setInput] = useState({
-  name: "",
-  summary: "",
-  healthScore: "",
-  steps: "",
-  diets:[]
-})
-
-
-function handleChange(e){
-  setInput({
-    ...input,
-    [e.target.name] : e.target.value
+  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const diets = useSelector((state) => state.diets)
+  const [errors, setErrors] = useState({
+    name: "",
+    healthScore: "",
+    summary: ""
   })
-  setErrors(validate({
-    ...input,
-    [e.target.name] : e.target.value
-  }))
-}
-console.log(input)
 
-// function handleCheck(e){
-//   if(e.target.checked){
-//     setInput({
-//       ...input,
-//       diets: e.target.value
-//     })
-//   }
-// }
-function handleSelect(e){
-  setInput({
-    ...input,
-    diets: [...input.diets, e.target.value]
-  })
-}
-
-function handleSubmit(e){
-  e.preventDefault();
-  console.log(input)
-  dispatch(postRecipe(input))
-  alert("Receta creada con exito")
-  setInput({
+  const [input, setInput] = useState({
     name: "",
     summary: "",
     healthScore: 0,
     steps: "",
-    diets:[]
+    dishTypes: "",
+    diets: []
   })
-  // history.push('/home')
-}
-
-function handleDelete(el) {
-  setInput({
-    ...input,
-    diets: input.diets.filter(diet => diet !== el)
-  })
-}
 
 
-useEffect(()=>{
-  dispatch(getDiets())
-},[dispatch]);
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    console.log("aca esta el erro", errors)
+  }
+  console.log(input)
+
+  function handleCheck(e) {
+    if (e.target.checked) {
+      setInput({
+        ...input,
+        diets: [...input.diets, e.target.value]
+      })
+    }
+    console.log("check", e.target.checked)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(input)
+    dispatch(postRecipe(input))
+    alert("Receta creada con exito")
+    setInput({
+      name: "",
+      summary: "",
+      healthScore: "",
+      steps: "",
+      dishTypes: "",
+      diets: []
+    })
+    setErrors({
+      name: "",
+      summary: "",
+      healthScore: ""
+    })
+    console.log("este es el e del submit", e.target[4].checked)
+
+    for (let index = 4; index < e.target.length; index++) {
+      if (e.target[index].checked) {
+        e.target[index].checked = false
+      }
+    }
+    // navigate("/home")
+  }
+
+  useEffect(() => {
+    dispatch(getDiets())
+  }, [dispatch]);
 
 
-return(
-  <div>
-    <Link to= '/home'><button>Inicio</button></Link>
-    <h1>Crear Receta</h1>
+  return (
+    <div className={style.sup}>
+      <div className={style.containerTotal}>
+    <div>
+      <NavLink to={"/home"}>
+      <button>Home</button>
+      </NavLink>
+      </div>  
+        <h3>Crear Receta</h3>
+        <form onSubmit={(e) => handleSubmit(e)}>
 
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div>
-        <label>Name:</label>
-        <input 
-        type= "text"
-        value= {input.name}
-        name="name"
-        onChange={(e) => handleChange(e)}
-        />
-        {errors.name && (
-          <p className="error">{errors.name}</p>)}
 
+
+          <div className={style.item}>
+            <label>Name:</label>
+            <input
+              // className={errors.name && "error"}
+              type="text"
+              value={input.name}
+              name="name"
+              onChange={(e) => handleChange(e)}
+            />
+            {errors.name && (
+              <p className="error">{errors.name}</p>)}
+          </div>
+
+
+          <div className={style.item}>
+            <label>summary:</label>
+            <textarea
+              // className={errors.summary && "error"}
+              type="text"
+              value={input.summary}
+              name="summary"
+              rows="5" cols="80"
+              onChange={(e) => handleChange(e)}
+            />
+            {errors.summary && (
+              <p className="error">{errors.summary}</p>)}
+          </div>
+
+          <div className={style.item}>
+            <label>healthScore:</label>
+            <input
+              // className={errors.healthScore && "error"}
+              type="number"
+              value={input.healthScore}
+              name="healthScore"
+              onChange={(e) => handleChange(e)}
+            />
+            {errors.healthScore && (
+              <p className="error">{errors.healthScore}</p>)}
+          </div>
+
+          <div className={style.item}>
+            <label>steps:</label>
+            <textarea
+              type="text"
+              value={input.steps}
+              name="steps"
+              rows="5" cols="80"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+
+          <div className={style.item}>
+            <label>dishTypes:</label>
+            <input
+              type="text"
+              value={input.dishTypes}
+              name="dishTypes"
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+
+          <div className={style.option}>
+            <p>Seleccione una o varias opciones de dieta</p>
+            <div className={style.diets}>
+              {diets?.map(el => {
+                return (
+                  <div className={style.diet}>
+                    <lu>{el}</lu>
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={el}
+                        name={el}
+                        onChange={(e) => handleCheck(e)} />
+                    </label>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          <div className={style.button}>
+            {Object.keys(errors).length === 0 ? <button type="submit">Crear Receta</button> : null}
+          </div>
+        </form>
       </div>
-      <br />
-      <div>
-      <label>summary:</label>
-        <input 
-        type= "text"
-        value= {input.summary}
-        name="summary"
-        onChange={(e) => handleChange(e)}
-        />
-        {errors.summary && (
-            <p className="error">{errors.summary}</p>)}
-      </div>
-      <br />
-      <div>
-      <label>healthScore:</label>
-        <input 
-        type= "number"
-        value= {input.healthScore}
-        name="healthScore"
-        onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <br />
-      <div>
-      <label>steps:</label>
-        <input 
-        type= "text"
-        value= {input.steps}
-        name="steps"
-        onChange={(e) => handleChange(e)}
-        />
-      </div>
-
-
-      {/* <div>
-      <label>diets:</label>
-        <label><input 
-        type= "checkbox"
-        value= "gluten free"
-        name="gluten free"
-        onChange={(e)=> handleCheck(e)}
-        />
-        gluten free</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "dairy free"
-        name="dairy free"
-        onChange={(e)=> handleCheck(e)}
-        />
-        dairy free</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "lacto ovo vegetarian"
-        name="lacto ovo vegetarian"
-        onChange={(e)=> handleCheck(e)}
-        />
-        lacto ovo vegetarian</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "vegan"
-        name="vegan"
-        onChange={(e)=> handleCheck(e)}
-        />
-        vegan</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "paleolithic"
-        name="paleolithic"
-        onChange={(e)=> handleCheck(e)}
-        />
-        paleolithic</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "primal"
-        name="primal"
-        onChange={(e)=> handleCheck(e)}
-        />
-        primal</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "whole 30"
-        name="whole 30"
-        onChange={(e)=> handleCheck(e)}
-        />
-        whole 30</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "pescatarian"
-        name="pescatarian"
-        onChange={(e)=> handleCheck(e)}
-        />
-        pescatarian</label>
-
-        <label><input 
-        type= "checkbox"
-        value= "ketogenic"
-        name="ketogenic"
-        onChange={(e)=> handleCheck(e)}
-        />
-        ketogenic</label>
-
-          <label><input 
-        type= "checkbox"
-        value= "fodmap friendly"
-        name="fodmap friendly"
-        onChange={(e)=> handleCheck(e)}
-        />
-        fodmap friendly</label>
-
-      </div> */}
-      <br />
-      <select onChange={(e) => handleSelect(e)}>
-          <option value="Diets:">Diets:</option>
-        {diets.map((el)=>(
-          <option value={el}>{el}</option>
-        ))}
-      </select>
-      {/* <li>{input.diets.map(el => "diets: "+ el + " ,")}</li> */}
-      <button type="submit">Crear Receta</button>
-
-    </form>
-    {input.diets.map(el =>
-        <div>
-          <p>{el}</p>
-          <button className="botonX" onClick={() => handleDelete(el)}>x</button>
-        </div>
-        )}
-  </div>
-)
-
-
-
+    </div>
+  )
 };

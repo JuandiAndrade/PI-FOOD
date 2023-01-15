@@ -1,111 +1,102 @@
-import React, { Fragment } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardRecipe from "./CardRecipe";
-import { getRecipe, filter, filter2, getDiets, filter3 } from '../actions';
-import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
-import { useState } from "react";
 import Paginado from "./Paginado";
-
+import style from "./styles/Home.module.css"
+import SearchBar from "./SearchBar";
+import Filtered from "./Filtered";
+import { getRecipe, getDiets } from '../actions';
 
 export default function Home() {
- 
+
   const dispatch = useDispatch();
+
   const allRecipes = useSelector((state) => state.recipes);
-  const diets = useSelector((state)=> state.diets)
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [recipesPerPage, setRecipesPerPage] = useState(9)
-  const indexLastRecipe = currentPage * recipesPerPage
-  const indexFirstRecipe = indexLastRecipe - recipesPerPage
+  const indexLastRecipe = currentPage * 9
+  const indexFirstRecipe = indexLastRecipe - 9
   const currentRecipes = allRecipes.slice(indexFirstRecipe, indexLastRecipe)
 
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-  
-  function handleFilter(e) {
-    // e.preventDefault();
-    dispatch(filter(e.target.value))
-  }
-  function handleFilter3(e) {
-    // e.preventDefault();
-    dispatch(filter3(e.target.value))
-  }
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [allRecipes])
 
-  function handleSelect(e){
-    dispatch(filter2(e.target.value))
-  }
-
-  useEffect(() => {     
+  useEffect(() => {
     dispatch(getRecipe())
     dispatch(getDiets())
   }, [dispatch])
 
-  
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(getRecipe());
-  }
-
-
   return (
-    <div>
-      <Link to='/recipes'>
-       <button>Crear Receta</button> 
-      </Link>
-      <h1>HOME</h1>
-      <Paginado
-          recipesPerPage={recipesPerPage}
+    <div className={style.home}>
+
+      <div className={style.container}>
+        <div className={style.filtered}>
+          <Filtered />
+        </div>
+        <div className={style.cards}>
+          {currentRecipes?.map((c) => {
+            return (
+              <CardRecipe
+                key={c.id}
+                id={c.id}
+                name={c.name}
+                healthScore={c.healthScore}
+                image={c.image}
+                diets={c.diets} />
+            )
+          })
+          }
+        </div>
+      </div>
+      <div className={style.container_inf}>
+        <Paginado
           allRecipes={allRecipes.length}
           paginado={paginado}
         />
-
-      <SearchBar />
-
-      <button onClick={e => { handleClick(e) }}>
-        CARGAR RECETAS
-      </button>
-      <br/>
-      <select onChange={e => handleFilter(e)}>
-          <option value='all'>Todos</option>
-          <option value='db'>Creados</option>
-          <option value='api'>Existente</option>
-      </select>
-      <br/>
-
-
-      <select onChange={(e) => handleSelect(e)}>
-          <option value="Diets:">Diets:</option>
-        {diets.map((el)=>(
-          <option value={el}>{el}</option>
-        ))}
-      </select>
-
-      <br/>
-
-      <select onChange={e => handleFilter3(e)}>
-          <option value='az'>AZ</option>
-          <option value='za'>ZA</option>
-          <option value='minMax'>MIN MAX</option>
-          <option value='maxMin'>MAX MIN</option>
-      </select>
-
-
-
-      {currentRecipes?.map((c) => {
-          return (
-            <Fragment>  
-                <Link to={"/home/" + c.id}>
-                <CardRecipe name={c.name} image={c.image} key={c.id} diets={!c.createdInDb? c.diets : c.diets.map(el=>el.name)} /> 
-                </Link>              
-            </Fragment>
-          )
-        })
-        }
-
+      </div>
     </div>
   )
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // MOUNT
+// useEffect(() => {
+//   // alert("cuando se monta este alert se dispara")
+// }, []);
+
+// // MIXT cdo se MOUNT + la action o function que se ejecuta
+// useEffect(() => {
+//   // alert("cuando se monta este alert se dispara")
+// }, [dispatch]);
+
+// // UPDATE
+// useEffect(() => {
+//   // alert("cuando se actualiza este alert se dispara")
+// }); // <-
+
+// // DISMOUNT
+// useEffect(() => {
+//   return; // return es equivaqlente al desmontar
+//   // alert("cuando se desmonta este alert se dispara")
+//   // locura [1.000.000] locura =[]
+//   });

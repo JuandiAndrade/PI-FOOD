@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-
-import { getNameCharacters } from "../actions";
+import { getNameRecipes } from "../actions";
+import style from "./styles/Nav.module.css"
 
 export default function SearchBar() {
   const dispach = useDispatch(" ")
@@ -14,16 +14,21 @@ export default function SearchBar() {
   }
   function handleSubmit(e) {
     e.preventDefault()
-    dispach(getNameCharacters(name))
+    dispach(getNameRecipes(name))
+    setName("")
   }
   return (
-    <div>
+    <div className={style.search}>
       <input
         type='text'
         placeholder="Buscar..."
         onChange={(e) => handleInputChange(e)}
+        value={name}
       />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>
+      <div>
+        <button className={style.button_search} type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>
+      </div>
     </div>
+
   )
 }

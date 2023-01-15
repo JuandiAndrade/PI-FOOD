@@ -1,0 +1,139 @@
+.sup{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around
+}
+
+
+.containerTotal{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: blueviolet;
+    border-radius: 20px;
+    width: 800px;
+    height: 900px;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    border: thin solid black;
+    margin-bottom: 10px;
+    border-radius: 5px;
+
+}
+
+.option{
+    display: flex;
+    /* border: thin solid black; */
+    flex-direction: column;
+} 
+.diets{
+    display: flex;
+    border: thin solid black;
+    flex-wrap: wrap;
+    height: 100px;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 50px
+}
+.diet{
+    /* border: thin solid black; */
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+.button{
+    display: flex;
+    padding: 20px;
+    flex-direction: column
+    
+}
+
+
+
+
+
+/* .error{
+    display: flex;
+    
+    border: thin solid black;
+    width: 300px;
+    height: 25px;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .create{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    
+}
+.content {
+    padding: 2rem;
+    border-radius: 30px;
+    background: #e0e0e0b6;
+    box-shadow: 15px 15px 30px #3c3c3cbb, -15px -15px 30px #3c3c3cbb;
+    width: fit-content;
+    background-color: #d9c3be;
+}
+.content img{
+    width: 180px;
+    height: 180px;
+}
+
+
+.button {
+    --glow-color: rgba(228, 132, 132, 0.853);
+    --glow-spread-color: white;
+    --btn-color: #629247(252, 252, 67, 0.805);
+    border: .25em solid var(--glow-color);
+    padding: 1em 1.5em;
+    color: var(--glow-color);
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    box-shadow: 0 0 1em .25em var(--glow-color),
+    0 0 4em 1em var(--glow-spread-color),
+    inset 0 0 .75em .25em var(--glow-color);
+    text-shadow: 0 0 .5em var(--glow-color);
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s;
+} */

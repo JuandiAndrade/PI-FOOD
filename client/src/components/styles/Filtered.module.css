@@ -1,0 +1,58 @@
+
+.filtered2{
+    
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* background-color:#d994258f;
+    border: thin solid #D99525; */
+    border-radius: 10px;
+    width: auto;
+    height: 350px;
+    
+} 
+
+select{
+
+background-color: white;
+border: thin solid #D99525;
+border-radius: 5px;
+display: inline-block;
+/* font: inherit; */
+width: 250px;
+height: 25px;
+margin-bottom: 1rem;
+color: #D99525;
+
+}
+
+
+.button {
+
+    width: 250px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid #D99525;
+    line-height: 0;
+    font-size: 13px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 5px;
+    border-radius: 5px;
+    color: #D99525;
+    font-weight: 100;
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 1;
+    /* margin-bottom: 1px; */
+}
+
+.button:hover,
+
+
+.button:focus {
+    color: white;
+    background-color: #D99525;
+}
+
