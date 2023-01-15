@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getDiets, postRecipe } from '../actions/index';
 import style from "./styles/Create.module.css"
+import logo from "./styles/logo2.png"
 
 
 function validate(input) {
@@ -96,19 +97,36 @@ export default function Create() {
 
   return (
     <div className={style.sup}>
+
+
+
+
+      <div className={style.containerNav}>
+        <div className={style.logo}>
+          <img src={logo} alt="img not found" />
+        </div>
+        <div className={style.items}>
+          <NavLink to={"/home"}>
+            <button className={style.button}>Recetas</button>
+          </NavLink>
+        </div>
+
+
+
+
+
+
+      </div>
       <div className={style.containerTotal}>
-    <div>
-      <NavLink to={"/home"}>
-      <button>Home</button>
-      </NavLink>
-      </div>  
-        <h3>Crear Receta</h3>
+        <div>
+        </div>
+        <h2>Crear Receta</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
 
 
 
           <div className={style.item}>
-            <label>Name:</label>
+            <label>Nombre de Receta</label>
             <input
               // className={errors.name && "error"}
               type="text"
@@ -117,12 +135,12 @@ export default function Create() {
               onChange={(e) => handleChange(e)}
             />
             {errors.name && (
-              <p className="error">{errors.name}</p>)}
+              <p className={style.error}>{errors.name}</p>)}
           </div>
 
 
           <div className={style.item}>
-            <label>summary:</label>
+            <label>Resumen</label>
             <textarea
               // className={errors.summary && "error"}
               type="text"
@@ -132,11 +150,11 @@ export default function Create() {
               onChange={(e) => handleChange(e)}
             />
             {errors.summary && (
-              <p className="error">{errors.summary}</p>)}
+              <p className={style.error}>{errors.summary}</p>)}
           </div>
 
           <div className={style.item}>
-            <label>healthScore:</label>
+            <label>Nivel de Salud</label>
             <input
               // className={errors.healthScore && "error"}
               type="number"
@@ -145,11 +163,11 @@ export default function Create() {
               onChange={(e) => handleChange(e)}
             />
             {errors.healthScore && (
-              <p className="error">{errors.healthScore}</p>)}
+              <p className={style.error}>{errors.healthScore}</p>)}
           </div>
 
           <div className={style.item}>
-            <label>steps:</label>
+            <label>Pasos</label>
             <textarea
               type="text"
               value={input.steps}
@@ -160,7 +178,7 @@ export default function Create() {
           </div>
 
           <div className={style.item}>
-            <label>dishTypes:</label>
+            <label>Tipo de Plato</label>
             <input
               type="text"
               value={input.dishTypes}
@@ -170,12 +188,12 @@ export default function Create() {
           </div>
 
           <div className={style.option}>
-            <p>Seleccione una o varias opciones de dieta</p>
+            <label>Seleccione Tipo de Dieta</label>
             <div className={style.diets}>
               {diets?.map(el => {
                 return (
                   <div className={style.diet}>
-                    <lu>{el}</lu>
+                    <lu className={style.lista}>{el}</lu>
                     <label>
                       <input
                         type="checkbox"
@@ -188,8 +206,8 @@ export default function Create() {
               })}
             </div>
           </div>
-          <div className={style.button}>
-            {Object.keys(errors).length === 0 ? <button type="submit">Crear Receta</button> : null}
+          <div className={style.buttonsubmit}>
+            {Object.keys(errors).length === 0 ? <button className={style.button} type="submit">Crear Receta</button> : null}
           </div>
         </form>
       </div>

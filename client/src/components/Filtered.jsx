@@ -57,7 +57,7 @@ export default function Filtered() {
                 <option value='maxMin'>Salud: MAX A MIN</option>
             </select>
             <button className={style.button} onClick={e => { handleClick1(e) }}>Aplicar filtros</button>
-            <button className={style.button} onClick={e => { handleClick2(e) }}>Reset</button>
+            <button className={style.button} onClick={e => { handleClick2(e) }}>Refrescar</button>
         </div>
     )
 };

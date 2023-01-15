@@ -15,21 +15,29 @@ code {
 
 
 p {
-  max-width: 460px;
   margin: 0 auto;
-
+  color: #313131;
   transition: color 300ms linear;
-  text-align: center; 
+  line-height: 1.5;
+  font-size: 13px;
+}
 
-  color: var(--color-dark);
+h3 {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #313131;
+  transition: color 300ms linear;
+  line-height: 1.5;
+  font-size: 20px;
+}
 
-  font-weight: 400;
+h4 {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #313131;
+  transition: color 300ms linear;
   line-height: 1.5;
   font-size: 15px;
 }
-
-
-
-
-
-

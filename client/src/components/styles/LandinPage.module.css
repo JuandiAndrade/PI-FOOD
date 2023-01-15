@@ -1,0 +1,61 @@
+.fondo {
+
+    /* background-image: url(https://img.freepik.com/free-photo/view-fruits-vegetables_23-2149271173.jpg?w=740&t=st=1673804970~exp=1673805570~hmac=0cbd57bc98eba89a9c96e6e42cd91b47e45dc68993649a15f60c9f9c31b46ade); */
+    background-image: url(https://img.freepik.com/free-photo/flat-lay-assortment-different-vegetables-with-copy-space_23-2148655289.jpg?w=740&t=st=1673803717~exp=1673804317~hmac=0c703d858da9039478c76441a232dba43297668094db978efc71c7c7ff0358a1);
+    background-size: cover;
+
+}
+
+.container {
+    display: flex;
+    /* background: rgba(255, 255, 255, 0.19); */
+    /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+    /* backdrop-filter: blur(2.2px); */
+    /* -webkit-backdrop-filter: blur(2.2px); */
+    /* border: 1px solid rgba(255, 255, 255, 0.24); */
+    height: 99vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.button {
+
+    width: 120px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid #D99525;
+    line-height: 0;
+    font-size: 13px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 5px;
+    border-radius: 5px;
+    color: #D99525;
+    font-weight: 100;
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 1;
+}
+
+.button:hover,
+
+
+.button:focus {
+    color: white;
+    background-color: #D99525;
+}
+
+
+
+.logo1 {
+    height: 100%;
+    width: 20%;
+    text-align: center;
+}
+
+.logo1 img {
+    height: 60%;
+    width: 60%;
+}

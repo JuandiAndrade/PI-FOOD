@@ -16,7 +16,7 @@
 select{
 
 background-color: white;
-border: thin solid #D99525;
+border: thin solid white;
 border-radius: 5px;
 display: inline-block;
 /* font: inherit; */

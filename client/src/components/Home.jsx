@@ -33,7 +33,9 @@ export default function Home() {
 
   return (
     <div className={style.home}>
-
+      <div className={style.container_search}>
+      <SearchBar />
+      </div>
       <div className={style.container}>
         <div className={style.filtered}>
           <Filtered />

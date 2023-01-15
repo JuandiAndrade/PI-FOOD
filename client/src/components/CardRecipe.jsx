@@ -10,10 +10,7 @@ export default function CardRecipe({ name, image, diets, id, healthScore }) {
         <div className={style.card}>
           <div className={style.card_image_wrapper}>
             <div className={style.card_view}>
-              <p>View Recipe</p>
-            </div>
-            <div className={style.card_view}>
-              <p>View Recipe</p>
+              <p className={style.parrafo}>Ver Detalles</p>
             </div>
             <img className={style.card_image} src={image} alt="img not found" />
           </div>
@@ -22,28 +19,11 @@ export default function CardRecipe({ name, image, diets, id, healthScore }) {
             <div className={style.card_recipe_info}>
               <h2 className={style.card_recipe_category}>Health Score: {healthScore}</h2>
             </div>
-            <div className={style.card_description}><h3>Diets:</h3> {diets?.map((el, i) => <p key={i}>{el}</p>)}</div>
+            <div className={style.card_description}><h4>Diets:</h4> {diets?.map((el, i) => <p key={i}>{el}</p>)}</div>
           </div>
         </div>
       </NavLink>
     </div>
-
-
-
-
-
-
-
-    // <div className={style.card}>     
-    //   <NavLink to={"/home/" + id} className={style.link}>
-    //   <img className={style.img} src={image} alt="img not found"/>
-    //   <div className={style.md}>
-    //   <h4>{name}</h4>   
-    //   <div><h5>Health Score: {healthScore}</h5></div>
-    //   <div className={style.tx}><h5>Diets:</h5> {diets?.map((el, i)=> <p key={i}>{el}</p> )}</div>
-    //   </div>
-    //   </NavLink>
-    // </div>
   )
 }
 

@@ -13,9 +13,8 @@ export default function NavBar() {
 	return (
 		<div className={style.containerNav}>
 			<div className={style.logo}>
-				<img src={logo} alt="img not found" />
+				<img  clasName={style.logo} src={logo} alt="img not found" />
 			</div>
-			<SearchBar />
 			<div className={style.items}>
 				<button className={style.button} onClick={e => { handleClick2(e) }}>Refrescar</button>
 				<NavLink to='/home' className={style.link}>
