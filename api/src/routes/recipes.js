@@ -52,12 +52,6 @@ router.post('/', async (req, res) => {
 			dishTypes,
 			createdInDb,
 		};
-		// const [createRecipe, boolean] = await Recipe.findOrCreate({
-		// 	where: {
-		// 	  name: name,
-		// 	},
-		//   });
-		// console.log(boolean)
 		const createRecipe = await Recipe.create(recipe);
 		const dietDb = await Diet.findAll({ where: { name: diets } });
 		await createRecipe.addDiets(dietDb);

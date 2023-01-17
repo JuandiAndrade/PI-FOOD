@@ -26,12 +26,21 @@ export function getNameRecipes(name) {
 }
 
 export function getDetail(id) {
-  return async function (dispatch) {
+  return async function (dispatch, getState) {
     try {
-      var json = await axios.get("http://localhost:3001/recipes/" + id);
+      if(id === "clear"){
+        return dispatch({
+          type: "GET_DETAILS",
+          payload: {}
+        })
+      }
+      const recipes = await getState().recipes
+      const detail = recipes.filter(e => e.id === Number(id))
+      console.log(recipes)
+      console.log("detail:", detail)
       return dispatch({
         type: "GET_DETAILS",
-        payload: json.data
+        payload: detail
       })
     } catch (error) {
       console.log(error);
@@ -65,4 +74,10 @@ export function filtered(dbApi, order, type) {
       payload: json.data
     })
   }
+}
+
+
+
+export function deleteRecipe(id){
+  return {type:'DELETE_RECIPE', payload: id}
 }

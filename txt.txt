@@ -1,0 +1,100 @@
+ 
+ 
+ FRONT 
+ //import { useNavigate } from "react-router-dom";
+ //const navigate = useNavigate()
+
+import axios from "axios"
+
+
+ async function handleSubmit(e) {
+    e.preventDefault();
+    console.log(input)
+    const response = await axios.post("http://localhost:3001/recipes", input)
+    if (response.data.error && response.data.error === "exists") {
+      return alert("esta receta ya existe")
+    } else {
+      alert("Receta creada con exito")
+      setInput({
+        name: "",
+        summary: "",
+        healthScore: "",
+        steps: "",
+        dishTypes: "",
+        diets: []
+      })
+      setErrors({
+        name: "",
+        summary: "",
+        healthScore: ""
+      })
+      console.log("este es el e del submit", e.target[4].checked)
+
+      for (let index = 4; index < e.target.length; index++) {
+        if (e.target[index].checked) {
+          e.target[index].checked = false
+        }
+      }
+    }
+
+    // navigate("/home")
+  }
+
+BACK
+  router.post('/', async (req, res) => {
+	try {
+		const { name, image, summary, healthScore, steps, diets, dishTypes, createdInDb } = req.body;
+
+		const [recipe, bool] = await Recipe.findOrCreate({
+			where: { name },
+			defaults: {
+				name,
+				image,
+				summary,
+				healthScore,
+				steps,
+				dishTypes,
+				createdInDb,
+			},
+			include: {
+				model: Diet,
+			},
+		});
+		if (bool) {
+			const dietDb = await Diet.findAll({ where: { name: diets } });
+			await recipe.addDiets(dietDb);
+			return res.status(200).json(recipe);
+		} else {
+			return res.status(200).json({ "error": "exists" })
+		}
+	} catch (error) {
+		res.status(400).send("No se pudo crear receta");
+	}
+})
+
+
+
+
+
+
+
+  const click = function (num) {
+    console.log("consol paginado click", num)
+    return paginado(num)
+  }
+
+
+  return (
+
+    <div className={style.paginado}>
+      {pageNumber &&
+        pageNumber.map(number =>{ 
+          return(
+            <button className={style.button}  onClick={() => click(number)}>
+              <p className={style.parrafo_paginado}>{number}</p>
+            </button>
+        )})}
+    </div>
+
+  )
+}

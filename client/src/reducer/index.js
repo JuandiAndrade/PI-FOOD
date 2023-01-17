@@ -35,6 +35,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 				recipes: action.payload
 			}
+		case 'DELETE_RECIPE':
+			return {
+				...state,
+				recipes: state.recipes.filter(u => u.id !== action.payload)
+			}
 		default:
 			return state;
 	}

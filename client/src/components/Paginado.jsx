@@ -11,8 +11,8 @@ export default function Paginado({ allRecipes, paginado }) {
     <div className={style.paginado}>
       {pageNumber &&
         pageNumber.map(number => (
-          <button className={style.button} key={number}>
-            <p className={style.parrafo_paginado} onClick={() => paginado(number)}>{number}</p>
+          <button className={style.button} key={number} onClick={() => paginado(number)}>
+            <p className={style.parrafo_paginado}>{number}</p>
           </button>
         ))}
     </div>

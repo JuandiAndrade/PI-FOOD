@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getNameRecipes } from "../actions";
 import style from "./styles/Home.module.css"
 
-export default function SearchBar() {
+export default function SearchBar({paginado}) {
   const dispach = useDispatch(" ")
   const [name, setName] = useState(" ")
 
@@ -15,6 +15,7 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault()
     dispach(getNameRecipes(name))
+    paginado(1)
     setName("")
   }
   return (

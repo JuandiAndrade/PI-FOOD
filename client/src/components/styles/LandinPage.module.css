@@ -1,7 +1,7 @@
 .fondo {
 
-    /* background-image: url(https://img.freepik.com/free-photo/view-fruits-vegetables_23-2149271173.jpg?w=740&t=st=1673804970~exp=1673805570~hmac=0cbd57bc98eba89a9c96e6e42cd91b47e45dc68993649a15f60c9f9c31b46ade); */
-    background-image: url(https://img.freepik.com/free-photo/flat-lay-assortment-different-vegetables-with-copy-space_23-2148655289.jpg?w=740&t=st=1673803717~exp=1673804317~hmac=0c703d858da9039478c76441a232dba43297668094db978efc71c7c7ff0358a1);
+    background-image: url(https://img.freepik.com/fotos-premium/supermercado-bolsa-papel-llena-comida-sana_79782-1632.jpg?w=826);
+    /* background-image: url(https://img.freepik.com/free-photo/flat-lay-assortment-different-vegetables-with-copy-space_23-2148655289.jpg?w=740&t=st=1673803717~exp=1673804317~hmac=0c703d858da9039478c76441a232dba43297668094db978efc71c7c7ff0358a1); */
     background-size: cover;
 
 }
@@ -13,10 +13,21 @@
     /* backdrop-filter: blur(2.2px); */
     /* -webkit-backdrop-filter: blur(2.2px); */
     /* border: 1px solid rgba(255, 255, 255, 0.24); */
-    height: 99vh;
+    height: 80vh;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
+}
+
+.sub_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f598;
+    width: 450px;
+    height: 120px;
+    border-radius: 5px;
+    margin-top: 100px;
 }
 
 
@@ -50,12 +61,15 @@
 
 
 .logo1 {
+    display: flex;
+    flex-direction: row-reverse;
     height: 100%;
     width: 20%;
     text-align: center;
 }
 
 .logo1 img {
+    margin-top: 50px;
     height: 60%;
     width: 60%;
 }

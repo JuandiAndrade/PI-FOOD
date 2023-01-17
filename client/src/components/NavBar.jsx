@@ -13,7 +13,7 @@ export default function NavBar() {
 	return (
 		<div className={style.containerNav}>
 			<div className={style.logo}>
-				<img  clasName={style.logo} src={logo} alt="img not found" />
+				<img  className={style.logo} src={logo} alt="img not found" />
 			</div>
 			<div className={style.items}>
 				<button className={style.button} onClick={e => { handleClick2(e) }}>Refrescar</button>

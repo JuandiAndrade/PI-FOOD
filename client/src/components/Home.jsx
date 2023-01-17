@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardRecipe from "./CardRecipe";
 import Paginado from "./Paginado";
-import style from "./styles/Home.module.css"
+import style from "./styles/Home.module.css";
 import SearchBar from "./SearchBar";
 import Filtered from "./Filtered";
-import { getRecipe, getDiets } from '../actions';
+import { getRecipe, getDiets} from '../actions';
 
 export default function Home() {
 
@@ -23,18 +23,17 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [allRecipes])
-
-  useEffect(() => {
     dispatch(getRecipe())
     dispatch(getDiets())
   }, [dispatch])
 
+
   return (
     <div className={style.home}>
       <div className={style.container_search}>
-      <SearchBar />
+      <SearchBar 
+      paginado={paginado}
+      />
       </div>
       <div className={style.container}>
         <div className={style.filtered}>
@@ -43,6 +42,7 @@ export default function Home() {
         <div className={style.cards}>
           {currentRecipes?.map((c) => {
             return (
+              <div key={c.id}>
               <CardRecipe
                 key={c.id}
                 id={c.id}
@@ -50,9 +50,10 @@ export default function Home() {
                 healthScore={c.healthScore}
                 image={c.image}
                 diets={c.diets} />
-            )
-          })
-          }
+              </div>
+                )
+              })
+            }
         </div>
       </div>
       <div className={style.container_inf}>

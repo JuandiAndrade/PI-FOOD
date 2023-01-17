@@ -6,13 +6,16 @@ import { getDiets, postRecipe } from '../actions/index';
 import style from "./styles/Create.module.css"
 import logo from "./styles/logo2.png"
 
+const exRegularName = /^[a-zA-Z]+[a-zA-Z]+$/
 
 function validate(input) {
   let errors = {};
   if (!input.name) {
     errors.name = "name requiere ser completado"
+  } else if (!exRegularName.test(input.name)) {
+    errors.name = "solo debe tener letra"
   } else if (!input.summary) {
-    errors.summary = "summary requiere ser completado"
+    errors.summary = "resumen requiere ser completado"
   } else if (input.healthScore > 100 || input.healthScore < 0) {
     errors.healthScore = 'el valor tiene que encontrarse entre 0 y 100';
   }
@@ -20,6 +23,7 @@ function validate(input) {
 }
 
 export default function Create() {
+
   // const navigate = useNavigate()
   const dispatch = useDispatch()
   const diets = useSelector((state) => state.diets)
@@ -112,23 +116,19 @@ export default function Create() {
         </div>
 
 
-
-
-
-
       </div>
       <div className={style.containerTotal}>
         <div>
         </div>
         <h2>Crear Receta</h2>
-        <form onSubmit={(e) => handleSubmit(e)}>
 
+
+        <form onSubmit={(e) => handleSubmit(e)}>
 
 
           <div className={style.item}>
             <label>Nombre de Receta</label>
             <input
-              // className={errors.name && "error"}
               type="text"
               value={input.name}
               name="name"
@@ -142,7 +142,6 @@ export default function Create() {
           <div className={style.item}>
             <label>Resumen</label>
             <textarea
-              // className={errors.summary && "error"}
               type="text"
               value={input.summary}
               name="summary"
@@ -156,7 +155,6 @@ export default function Create() {
           <div className={style.item}>
             <label>Nivel de Salud</label>
             <input
-              // className={errors.healthScore && "error"}
               type="number"
               value={input.healthScore}
               name="healthScore"
@@ -196,6 +194,7 @@ export default function Create() {
                     <lu className={style.lista}>{el}</lu>
                     <label>
                       <input
+                        className={style.check}
                         type="checkbox"
                         value={el}
                         name={el}
@@ -214,3 +213,5 @@ export default function Create() {
     </div>
   )
 };
+
+
