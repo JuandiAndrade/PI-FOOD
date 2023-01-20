@@ -5,40 +5,11 @@ const { Recipe, Diet } = require('../db')
 const datajson = require("../data.json")
 
 
-const get_Api_Recipes = async () => {
-	const dataApi = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&maxFat=100&number=100`, {
-		headers: { "accept-encoding": "*" },
-	})
-	const recipes = dataApi.data.results.map(el => {
-		return {
-			id: el.id,
-			name: el.title,
-			healthScore: el.healthScore,
-			image: el.image,
-			summary: el.summary.replaceAll(/<(“[^”]”|'[^’]’|[^'”>])*>/g, ""),
-			diets: el.diets,
-			steps: el.analyzedInstructions[0]?.steps.map(el => {
-				return {
-					number: el.number,
-					step: el.step,
-				}
-			}),
-			dishTypes: el.dishTypes
-		}
-	})
-	return recipes
-}
-
 // const get_Api_Recipes = async () => {
-// 	const recipes = datajson.results.map(el => {
-
-// 		var steps = el.analyzedInstructions[0]?.steps.map(el => {
-// 			return {
-// 				number: el.number,
-// 				step: el.step,
-// 			}
-// 		})
-
+// 	const dataApi = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&maxFat=100&number=100`, {
+// 		headers: { "accept-encoding": "*" },
+// 	})
+// 	const recipes = dataApi.data.results.map(el => {
 // 		return {
 // 			id: el.id,
 // 			name: el.title,
@@ -46,12 +17,41 @@ const get_Api_Recipes = async () => {
 // 			image: el.image,
 // 			summary: el.summary.replaceAll(/<(“[^”]”|'[^’]’|[^'”>])*>/g, ""),
 // 			diets: el.diets,
-// 			dishTypes: el.dishTypes,
-// 			steps: steps ? steps : []
+// 			steps: el.analyzedInstructions[0]?.steps.map(el => {
+// 				return {
+// 					number: el.number,
+// 					step: el.step,
+// 				}
+// 			}),
+// 			dishTypes: el.dishTypes
 // 		}
 // 	})
 // 	return recipes
 // }
+
+const get_Api_Recipes = async () => {
+	const recipes = datajson.results.map(el => {
+
+		var steps = el.analyzedInstructions[0]?.steps.map(el => {
+			return {
+				number: el.number,
+				step: el.step,
+			}
+		})
+
+		return {
+			id: el.id,
+			name: el.title,
+			healthScore: el.healthScore,
+			image: el.image,
+			summary: el.summary.replaceAll(/<(“[^”]”|'[^’]’|[^'”>])*>/g, ""),
+			diets: el.diets,
+			dishTypes: el.dishTypes,
+			steps: steps ? steps : []
+		}
+	})
+	return recipes
+}
 
 const get_Db_Info = async () => {
 	return await Recipe.findAll({

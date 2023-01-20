@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getDiets, postRecipe } from '../actions/index';
 import style from "./styles/Create.module.css"
-import logo from "./styles/logo2.png"
+import logo from "./styles/logos/logo2.png"
+import axios from "axios"
 
 const exRegularName = /^[a-zA-Z]+[a-zA-Z]+$/
 
@@ -66,31 +67,36 @@ export default function Create() {
     console.log("check", e.target.checked)
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(input)
-    dispatch(postRecipe(input))
-    alert("Receta creada con exito")
-    setInput({
-      name: "",
-      summary: "",
-      healthScore: "",
-      steps: "",
-      dishTypes: "",
-      diets: []
-    })
-    setErrors({
-      name: "",
-      summary: "",
-      healthScore: ""
-    })
-    console.log("este es el e del submit", e.target[4].checked)
+    const response = await axios.post("http://localhost:3001/recipes", input)
+    if (response.data.error && response.data.error === "exists") {
+      return alert("esta receta ya existe")
+    } else {
+      alert("Receta creada con exito")
+      setInput({
+        name: "",
+        summary: "",
+        healthScore: "",
+        steps: "",
+        dishTypes: "",
+        diets: []
+      })
+      setErrors({
+        name: "",
+        summary: "",
+        healthScore: ""
+      })
+      console.log("este es el e del submit", e.target[4].checked)
 
-    for (let index = 4; index < e.target.length; index++) {
-      if (e.target[index].checked) {
-        e.target[index].checked = false
+      for (let index = 4; index < e.target.length; index++) {
+        if (e.target[index].checked) {
+          e.target[index].checked = false
+        }
       }
     }
+
     // navigate("/home")
   }
 

@@ -25,22 +25,34 @@ export function getNameRecipes(name) {
   }
 }
 
+// export function getDetail(id) {
+//   return async function (dispatch) {
+//     try {
+//       var json = await axios.get("http://localhost:3001/recipes/" + id);
+//       return dispatch({
+//         type: "GET_DETAILS",
+//         payload: json.data
+//       })
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// }
 export function getDetail(id) {
   return async function (dispatch, getState) {
     try {
-      if(id === "clear"){
-        return dispatch({
-          type: "GET_DETAILS",
-          payload: {}
-        })
-      }
-      const recipes = await getState().recipes
-      const detail = recipes.filter(e => e.id === Number(id))
-      console.log(recipes)
-      console.log("detail:", detail)
+      var recipes = getState().recipes
+      var recipe = recipes.filter(e => {
+        if (e.createdInDb && e.createdInDb) {
+          return e.id === id
+        } else {
+          return e.id === Number(id)
+        }
+      })
+      // var json = await axios.get("http://localhost:3001/recipes/" + id);
       return dispatch({
         type: "GET_DETAILS",
-        payload: detail
+        payload: recipe
       })
     } catch (error) {
       console.log(error);
@@ -76,8 +88,12 @@ export function filtered(dbApi, order, type) {
   }
 }
 
-
-
-export function deleteRecipe(id){
-  return {type:'DELETE_RECIPE', payload: id}
+export function deleteRecipe(id) {
+  return async function (dispatch) {
+    const json = await axios.delete("http://localhost:3001/recipes/" + id)
+    return dispatch({
+      type: 'DELETE_RECIPE',
+      payload: id
+    })
+  }
 }

@@ -32,12 +32,17 @@
     border-radius: 5px;
 } 
 
-
-
-.container_inf{
+.container_pag_sup{
     display: flex;
     justify-content: center;
-    padding: 35px;
+    padding: 35px; 
+}
+
+.container_pag_inf{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 10px;
 }
 
 

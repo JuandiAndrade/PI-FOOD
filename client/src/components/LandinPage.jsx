@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import style from "./styles/LandinPage.module.css"
-import logo1 from "./styles/logo1.png"
+import logo1 from "./styles/logos/logo1.png"
 
 export default function LandingPage() {
   return (

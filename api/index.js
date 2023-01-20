@@ -22,9 +22,9 @@ const { conn } = require('./src/db.js');
 const {getDiets} = require('../api/src/controllers/diets')
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   server.listen(3001, () => {
     console.log('%s listening at http://localhost:3001'); // eslint-disable-line no-console
   });
-  getDiets()
+  // getDiets()
 });

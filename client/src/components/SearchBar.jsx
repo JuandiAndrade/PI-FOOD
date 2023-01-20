@@ -5,7 +5,7 @@ import { getNameRecipes } from "../actions";
 import style from "./styles/Home.module.css"
 
 export default function SearchBar({paginado}) {
-  const dispach = useDispatch(" ")
+  const dispatch = useDispatch(" ")
   const [name, setName] = useState(" ")
 
   function handleInputChange(e) {
@@ -14,10 +14,11 @@ export default function SearchBar({paginado}) {
   }
   function handleSubmit(e) {
     e.preventDefault()
-    dispach(getNameRecipes(name))
+    dispatch(getNameRecipes(name))
     paginado(1)
     setName("")
   }
+  
   return (
     <div className={style.search}>
       <input

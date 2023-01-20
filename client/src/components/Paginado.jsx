@@ -16,6 +16,5 @@ export default function Paginado({ allRecipes, paginado }) {
           </button>
         ))}
     </div>
-
   )
 }

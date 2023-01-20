@@ -64,15 +64,11 @@ const filtered = async function (req, res) {
 				return 0;
 			});
 		}
-		if (type && type !== "verde") {
+		if (type) {
 			console.log("all")
 			result = result.filter(el => el.diets.includes(type))
 		}
-		if (type === "verde") {
-			console.log("in verde")
-			result = result.filter(el => el.diets.includes("whole 30") || el.diets.includes("vegan"))
-		}
-
+		
 		console.log(req.query)
 		res.json(result)
 	} catch (error) {

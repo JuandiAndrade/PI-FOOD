@@ -5,7 +5,7 @@ import Paginado from "./Paginado";
 import style from "./styles/Home.module.css";
 import SearchBar from "./SearchBar";
 import Filtered from "./Filtered";
-import { getRecipe, getDiets} from '../actions';
+import { getRecipe, getDiets } from '../actions';
 
 export default function Home() {
 
@@ -14,8 +14,9 @@ export default function Home() {
   const allRecipes = useSelector((state) => state.recipes);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const indexLastRecipe = currentPage * 9
-  const indexFirstRecipe = indexLastRecipe - 9
+  const recipesPerPage = 9
+  const indexLastRecipe = currentPage * recipesPerPage
+  const indexFirstRecipe = indexLastRecipe - recipesPerPage
   const currentRecipes = allRecipes.slice(indexFirstRecipe, indexLastRecipe)
 
   const paginado = (pageNumber) => {
@@ -31,32 +32,43 @@ export default function Home() {
   return (
     <div className={style.home}>
       <div className={style.container_search}>
-      <SearchBar 
-      paginado={paginado}
-      />
+        <SearchBar
+          paginado={paginado}
+        />
+      </div>
+      <div className={style.container_pag_inf}>
+        <Paginado
+          allRecipes={allRecipes.length}
+          paginado={paginado}
+        />
       </div>
       <div className={style.container}>
         <div className={style.filtered}>
-          <Filtered />
+          <Filtered/>
+        </div>
+        <div className={style.container_inf}>
+
         </div>
         <div className={style.cards}>
           {currentRecipes?.map((c) => {
             return (
               <div key={c.id}>
-              <CardRecipe
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                healthScore={c.healthScore}
-                image={c.image}
-                diets={c.diets} />
+                <CardRecipe
+                  key={c.id}
+                  id={c.id}
+                  name={c.name}
+                  healthScore={c.healthScore}
+                  image={c.image}
+                  diets={c.diets}
+                  createdInDb={c.createdInDb}
+                />
               </div>
-                )
-              })
-            }
+            )
+          })
+          }
         </div>
       </div>
-      <div className={style.container_inf}>
+      <div className={style.container_pag_inf}>
         <Paginado
           allRecipes={allRecipes.length}
           paginado={paginado}

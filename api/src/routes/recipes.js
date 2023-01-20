@@ -22,14 +22,14 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
-// router.get('/db', async (req, res) => {
-//     const info = await get_Db_Recipes();
-//     try {
-//         res.status(200).send(info);
-//     } catch (error) {
-//         res.status(400).send("no se cargaron las recetas de la base de datos");
-//     };
-// });
+router.get('/db', async (req, res) => {
+    const info = await get_Db_Recipes();
+    try {
+        res.status(200).send(info);
+    } catch (error) {
+        res.status(400).send("no se cargaron las recetas de la base de datos");
+    };
+});
 
 // router.get('/api', async (req, res) => {
 //     const info = await get_Api_Recipes();
@@ -43,22 +43,47 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		const { name, image, summary, healthScore, steps, diets, dishTypes, createdInDb } = req.body;
-		const recipe = {
-			name,
-			image,
-			summary,
-			healthScore,
-			steps,
-			dishTypes,
-			createdInDb,
-		};
-		const createRecipe = await Recipe.create(recipe);
-		const dietDb = await Diet.findAll({ where: { name: diets } });
-		await createRecipe.addDiets(dietDb);
-		res.send('Receta creada con éxito');
+
+		const [recipe, bool] = await Recipe.findOrCreate({
+			where: { name },
+			defaults: {
+				name,
+				image:  image?image:"https://i.pinimg.com/564x/7f/a3/5e/7fa35e59edae324e0545e76108ca3a06.jpg",
+				summary,
+				healthScore,
+				steps,
+				dishTypes,
+				createdInDb,
+			},
+			include: {
+				model: Diet,
+			},
+		});
+		if (bool) {
+			const dietDb = await Diet.findAll({ where: { name: diets } });
+			await recipe.addDiets(dietDb);
+			return res.status(200).json(recipe);
+		} else {
+			return res.status(200).json({ "error": "exists" })
+		}
 	} catch (error) {
 		res.status(400).send("No se pudo crear receta");
 	}
+})
+
+
+router.delete("/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        let rec = await Recipe.destroy({
+            where: {
+                id: id
+            }
+        });
+        return res.json({ borrado: true })
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 module.exports = router;

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../actions";
 import { useParams } from "react-router-dom";
@@ -16,12 +15,6 @@ export default function Detail() {
   }, [dispatch])
 
   const myRecipe = useSelector((state) => state.detail)
-
-  useEffect(() => {
-    return dispatch(getDetail("clear"))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
 
   console.log(myRecipe)
   return (
