@@ -12,11 +12,11 @@ const exRegularName = /^[a-zA-Z]+[a-zA-Z]+$/
 function validate(input) {
   let errors = {};
   if (!input.name) {
-    errors.name = "name requiere ser completado"
+    errors.name = "Nombre requiere ser completado"
   } else if (!exRegularName.test(input.name)) {
-    errors.name = "solo debe tener letra"
+    errors.name = "Solo debe tener letra"
   } else if (!input.summary) {
-    errors.summary = "resumen requiere ser completado"
+    errors.summary = "Resumen requiere ser completado"
   } else if (input.healthScore > 100 || input.healthScore < 0) {
     errors.healthScore = 'el valor tiene que encontrarse entre 0 y 100';
   }

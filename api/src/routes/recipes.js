@@ -86,4 +86,19 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
+router.put("/:id", async (req, res) => {   ///////NO LO ESTOY USANDO EN EL FRONT////////
+    const id = req.params.id
+    const recipe = req.body
+        try {
+        let reci = await Recipe.update(recipe, {
+            where: {
+                id: id
+            }
+        });
+        return res.json({ cambiado: true })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 module.exports = router;

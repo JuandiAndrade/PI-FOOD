@@ -5,7 +5,7 @@ import { useState } from "react";
 import style from "./styles/Filtered.module.css"
 
 
-export default function Filtered(paginado) {
+export default function Filtered({paginado}) {
 
 	const dispatch = useDispatch();
 
@@ -29,6 +29,7 @@ export default function Filtered(paginado) {
 	function handleClick1(e) {
 		e.preventDefault();
 		dispatch(filtered(dbApi, order, type));
+		paginado(1)
 	}
 
 	function handleClick2(e) {

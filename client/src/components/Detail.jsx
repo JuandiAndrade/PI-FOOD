@@ -14,11 +14,19 @@ export default function Detail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
+
+  ////////// IMPLEMENTARLO CON GETDETAIL DE LAS ACTION////////////
+  ////// PARA QUE SE DESMONTE CUANDO SALGO DEL DETALLE Y NO ME QUEDE LA IMAGEN CUANDO CARGO EL DETALLE DE OTRA DIETA///
+  //   useEffect(() => {
+  //     return dispatch(getDetail("clear"))                 
+  // eslint-disable-next-line react-hooks/exhaustive-deps   
+  //   }, [])
+
   const myRecipe = useSelector((state) => state.detail)
 
   console.log(myRecipe)
   return (
-    
+
     <div>
       {
         myRecipe?.length > 0 ?

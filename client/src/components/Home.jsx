@@ -38,13 +38,15 @@ export default function Home() {
       </div>
       <div className={style.container_pag_inf}>
         <Paginado
+          currentPage={currentPage}
           allRecipes={allRecipes.length}
           paginado={paginado}
         />
       </div>
       <div className={style.container}>
         <div className={style.filtered}>
-          <Filtered/>
+          <Filtered
+            paginado={paginado} />
         </div>
         <div className={style.container_inf}>
 
@@ -70,6 +72,7 @@ export default function Home() {
       </div>
       <div className={style.container_pag_inf}>
         <Paginado
+          currentPage={currentPage}
           allRecipes={allRecipes.length}
           paginado={paginado}
         />

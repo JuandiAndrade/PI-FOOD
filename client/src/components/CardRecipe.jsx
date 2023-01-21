@@ -8,8 +8,10 @@ import { useDispatch } from "react-redux";
 export default function CardRecipe({ name, image, diets, id, healthScore, createdInDb }) {
 
   const dispatch = useDispatch();
+
   function handleClickCard(id) {
     dispatch(deleteRecipe(id));
+    alert("Receta eliminada")
   }
 
 

@@ -1,6 +1,5 @@
 const { get_Api_Recipes, get_Db_Recipes } = require("./recipes")
 
-
 const filtered = async function (req, res) {
 	try {
 		const { dbApi, type, order } = req.query
@@ -68,7 +67,7 @@ const filtered = async function (req, res) {
 			console.log("all")
 			result = result.filter(el => el.diets.includes(type))
 		}
-		
+
 		console.log(req.query)
 		res.json(result)
 	} catch (error) {

@@ -9,7 +9,7 @@ const router = Router();
 
 router.use('/diets', diets)
 router.use('/recipes', recipes)
-router.use("/filtered", filtered)
+router.get("/filtered", filtered)
 
 
 module.exports = router;
